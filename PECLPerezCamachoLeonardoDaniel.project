@@ -93,6 +93,8 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="Paciente.cpp"/>
+    <File Name="Paciente.hpp"/>
     <File Name="Persona.cpp"/>
     <File Name="Persona.hpp"/>
     <File Name="main.cpp"/>
