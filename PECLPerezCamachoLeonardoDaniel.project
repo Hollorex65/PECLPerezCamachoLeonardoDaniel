@@ -93,10 +93,14 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
-    <File Name="Paciente.cpp"/>
-    <File Name="Paciente.hpp"/>
-    <File Name="Persona.cpp"/>
-    <File Name="Persona.hpp"/>
+    <VirtualDirectory Name="Source Files">
+      <File Name="Persona.cpp"/>
+      <File Name="Paciente.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Header Files">
+      <File Name="Persona.hpp"/>
+      <File Name="Paciente.hpp"/>
+    </VirtualDirectory>
     <File Name="main.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
