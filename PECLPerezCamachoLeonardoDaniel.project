@@ -94,6 +94,7 @@
   </Settings>
   <VirtualDirectory Name="src">
     <VirtualDirectory Name="Source Files">
+      <File Name="main.cpp"/>
       <File Name="Pila.cpp"/>
       <File Name="NodoPila.cpp"/>
       <File Name="Persona.cpp"/>
@@ -107,6 +108,5 @@
       <File Name="Persona.hpp"/>
       <File Name="Paciente.hpp"/>
     </VirtualDirectory>
-    <File Name="main.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>

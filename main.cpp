@@ -3,9 +3,13 @@
 #include "Paciente.hpp"
 #include <string>
 #include <iostream>
+#include <cstdlib> // Necesario para rand() y srand()
+#include <cstring> // Necesario para usar strcpy
 
 // Menu de la aplicacion hehehe
 void menu();
+// Generador de pacientes
+void generadorPacientes();
 
 int main(int argc, char **argv)
 {
@@ -32,17 +36,43 @@ int main(int argc, char **argv)
 	//no se repita
 	
 	// Muestra la lista de opciones:
-	menu();
+	//menu();
 	
 	// Esto tambien lo hare mas adelante una funcion con un try cacht para que el usuario solamente
 	//pueda colocar char[1] es decir una letra sea Mayuscula o Minuscula....
-	cout << "Indique la opcion deseada: ";
-	cin >> opcion; // Lee la entrada
+	//cout << "Indique la opcion deseada: ";
+	//cin >> opcion; // Lee la entrada
+	
+	while (opcion != "S") {
+		
+		// Menu desplegado y peticion de entrada...
+		menu();
+		cout << "\nIndique la opcion deseada: ";
+		cin >> opcion; // Lee la entrada
+		
+		if (opcion == "A") {
+			
+			// Ya esta la funcion generadora de pacientes, mas que pacientes personas ahora solamente queda implementarla a 
+			cout << "\nOpcion A selecionada generando 12 pacientes nuevos...\n\n";
+			// Funcion generadora de pacientes nuevos (12 por iteracion - Maximo 48)
+			for (int i = 0; i < 12; i++) {
+				generadorPacientes();
+			}
+			cout << "\nPacientes generados con exito.\n\n";
+			
+		} else if (opcion == "B") {
+			cout << "\nOpcion B\n";
+		} else if (opcion == "S") {
+			cout << "\nSaliendo del programa\n";
+		}else {
+			cout << "\n--------------------------------------------\nDebes elegir una de las opciones del menu...\n--------------------------------------------\n\n";
+		}
+	}
 	
 	return 0;
 }
 
-// Implementación de la función menu, aqui abajo ya defino que hace menu.
+// ImplementaciOn de la función menu, aqui abajo ya defino que hace menu.
 void menu() {
 	
 	// Menu con las opciones a elegir
@@ -68,4 +98,58 @@ void menu() {
 			"S. Salir.\n" <<
 			"T. Mostrar los pacientes que se encuentran almacenados en un nodo hoja.\n" <<
 			"U. Eliminar un paciente indicado por su numero de habitacion (que se pide desde consola) y mostrar el arbol resultante tras la eliminacion de dicho paciente.\n";
+}
+
+void generadorPacientes() {
+	
+	// Nombres de personas...
+	string personas[20] = {
+        "Alejandro", "Beatriz",  // 0 (Par),  1 (Impar)
+        "Carlos",    "Diana",    // 2 (Par),  3 (Impar)
+        "Eduardo",   "Fernanda", // 4 (Par),  5 (Impar)
+        "Gabriel",   "Helena",   // 6 (Par),  7 (Impar)
+        "Ignacio",   "Julia",    // 8 (Par),  9 (Impar)
+        "Kevin",     "Lucia",    // 10 (Par), 11 (Impar)
+        "Manuel",    "Natalia",  // 12 (Par), 13 (Impar)
+        "Oscar",     "Patricia", // 14 (Par), 15 (Impar)
+        "QuintIn",   "Rosa",     // 16 (Par), 17 (Impar)
+        "Sergio",    "Tatiana"   // 18 (Par), 19 (Impar)
+    };
+	// Letras DNI...
+	char abecedario[26] = {
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
+        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
+		'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    };
+	
+	// Generamos con un numero aleatorio los nombres de los pacientes y sus edades
+	
+	// Inicializar la semilla aleatoria (para que los números cambien en cada ejecución)
+    //srand(time(nullptr));
+	
+	// Generar un numero aleatorio de 0 a 19 - rand() % 20 da un valor entre 0 y 19
+    int numeroAleatorio = rand() % 20;
+	
+	// Con ese valor aleatroio se asigna un nombre del array de nombres
+	string nombreAleatorio = personas[numeroAleatorio];
+	
+	// Generamos otro numero aleatorio 
+	int edad = rand() % (30) + 20;
+	 
+	// Generamos mas numeros aleatorios para su DNI y letra del DNI
+	int numeroAleatorioLetraDNI = rand() % 26;
+	int numerosDNI = rand() % 99999999 + 10000000;
+	
+	// Convertir a string
+	string DNI_str = to_string(numerosDNI) + abecedario[numeroAleatorioLetraDNI];
+	 
+	char DNI[10];
+	strcpy(DNI, DNI_str.c_str()); // <--- Copia automática aquí
+	 
+	 // Esta persona es temporalmente queda añadirlos a la pila
+	 Persona persone12 = Persona(nombreAleatorio, edad, (numeroAleatorio % 2 == 0 ? "Hombre" : "Mujer"), DNI);
+	 persone12.saludar();
+	
+	//cout << nombreAleatorio << " tiene: " << edad << (numeroAleatorio % 2 == 0 ? " es Hombre" : " es Mujer") 
+	//<< " DNI: " << abecedario[numeroAleatorioLetraDNI] << numerosDNI << "\n";
 }

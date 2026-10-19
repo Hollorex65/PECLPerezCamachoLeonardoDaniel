@@ -39,7 +39,7 @@ void Pila::mostrar()
 	cout <<"\tEl contenido de la pila es: "; 
 	while(aux) {
 		cout << "-> " << aux-> valor; 
-		aux = aux-->siguiente; 
+		aux = aux->siguiente; 
 	}
 	cout << endl; 
 }
