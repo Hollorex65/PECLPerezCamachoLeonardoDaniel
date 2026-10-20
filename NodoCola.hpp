@@ -1,14 +1,19 @@
+#ifndef NODOCOLA_HPP
+#define NODOCOLA_HPP
+
 #include <iostream> 
+#include "Paciente.hpp"
 using namespace std; 
 
 class NodoCola
 {
 	public: 
-		NodoCola(int v, NodoCola* sig = NULL); 
+		NodoCola(Paciente p, NodoCola* sig = NULL); 
 		NodoCola(); 
+		~NodoCola();
 		
 	private:
-		int valor;
+		Paciente valor;
 		NodoCola* siguiente;
 		
 		friend class Cola; 
@@ -16,3 +21,5 @@ class NodoCola
 };
 
 typedef NodoCola* pnodoCola;
+
+#endif // NODOCOLA_HPP

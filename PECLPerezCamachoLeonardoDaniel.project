@@ -101,7 +101,6 @@
       <File Name="main.cpp"/>
       <File Name="Pila.cpp"/>
       <File Name="NodoPila.cpp"/>
-      <File Name="Persona.cpp"/>
       <File Name="Paciente.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Header Files">
@@ -111,7 +110,6 @@
       <File Name="NodoPila.hpp"/>
       <File Name="Cola.hpp"/>
       <File Name="NodoCola.hpp"/>
-      <File Name="Persona.hpp"/>
       <File Name="Paciente.hpp"/>
     </VirtualDirectory>
   </VirtualDirectory>

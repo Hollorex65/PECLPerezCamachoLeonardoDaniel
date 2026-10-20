@@ -1,3 +1,6 @@
+#ifndef COLA_HPP
+#define COLA_HPP
+
 #include "NodoCola.hpp"
 
 class Cola 
@@ -6,10 +9,10 @@ public:
 	Cola();
 	~Cola();
 	
-	void insertar(int v); 
-	int eliminar(); 
+	void insertar(Paciente p); 
+	Paciente eliminar(); 
 	void mostrar();
-	int verPrimero(); 
+	Paciente verPrimero(); 
 	
 private: 
 	pnodoCola primero, ultimo; 
@@ -17,3 +20,4 @@ private:
 	
 };
 
+#endif // COLA_HPP

@@ -6,39 +6,48 @@ Pila::Pila()
 	longitud = 0; 
 	
 }
-void Pila::insertar(int v) 
+void Pila::insertar(Paciente p) 
 {
 	pnodoPila nuevo; 
-	nuevo = new NodoPila(v, ultimo); 
+	nuevo = new NodoPila(p, ultimo); 
 	ultimo = nuevo; 
 	longitud++; 
 }
-int Pila::extraer()
+Paciente Pila::extraer()
 {
+	Paciente p; 
 	pnodoPila nodo; 
-	int v; 
 	if (!ultimo)
-		return 0; 
+	{
+		// la pila esta vacia: devolvemos el paciente sentinela (id -1)
+		cout << "\tLa pila esta vacia, no hay nada que extraer\n";
+		return Paciente::pacienteVacio(); 
+	}
 	nodo = ultimo; 
 	ultimo = nodo->siguiente; 
-	v = nodo->valor; 
+	p = nodo->valor; 
 	longitud--; 
 	delete nodo; 
-	return v; 
+	return p; 
 }
-int Pila::cima()
+Paciente Pila::cima()
 {
-	pnodoPila nodo; 
 	if(!ultimo) 
-		return 0; 
+		return Paciente::pacienteVacio(); 
 	return ultimo->valor; 
 }
 void Pila::mostrar()
 {
 	pnodoPila aux = ultimo;
-	cout <<"\tEl contenido de la pila es: "; 
-	while(aux) {
-		cout << "-> " << aux-> valor; 
+	if(!aux)
+	{
+		cout <<"\tLa pila esta vacia\n"; 
+		return; 
+	}
+	cout <<"\tEl contenido de la pila es:\n"; 
+	while(aux) 
+	{
+		aux->valor.saludarPaciente(); 
 		aux = aux->siguiente; 
 	}
 	cout << endl; 

@@ -6,10 +6,10 @@ Cola::Cola()
 	ultimo = NULL; 
 	longitud = 0; 
 }
-void Cola::insertar(int v) 
+void Cola::insertar(Paciente p) 
 {
 	pnodoCola nuevo; 
-	nuevo = new NodoCola(v); 
+	nuevo = new NodoCola(p); 
 	if(ultimo)
 		ultimo-> siguiente = nuevo; 
 	ultimo = nuevo; 
@@ -20,30 +20,43 @@ void Cola::insertar(int v)
 }
 void Cola::mostrar()
 {
-	pnodoCola aux= primero; 
-	cout<<"\tEl contenido de la cola es: "; 
-	while(aux){
-		cout<<"-> "<<aux->valor; 
-		aux= aux-> siguiente; 
+	pnodoCola aux = primero; 
+	if(!aux)
+	{
+		cout << "\tLa cola esta vacia\n"; 
+		return; 
+	}
+	cout<<"\tEl contenido de la cola es:\n"; 
+	while(aux)
+	{
+		aux->valor.saludarPaciente(); 
+		aux = aux-> siguiente; 
 	}
 	cout<<endl; 
 }
-int Cola::eliminar()
+Paciente Cola::eliminar()
 {
+	Paciente p; 
 	pnodoCola nodo; 
-	int v; 
 	nodo = primero; 
 	if(!nodo) 
-		return 0; 
-		primero = nodo->siguiente; 
-		v = nodo->valor; 
-		delete nodo; 
-		if(!primero)
-			ultimo = NULL; 
-		longitud--; 
-		return v; 
+	{
+		// la cola esta vacia: devolvemos el paciente sentinela (id -1)
+		cout << "\tLa cola esta vacia, no hay nada que eliminar\n";
+		return Paciente::pacienteVacio(); 
+	}
+	p = nodo->valor; 
+	primero = nodo->siguiente; 
+	delete nodo; 
+	if(!primero)
+		ultimo = NULL; 
+	longitud--; 
+	return p; 
 }
-int Cola::verPrimero(){
+Paciente Cola::verPrimero()
+{
+	if(!primero) 
+		return Paciente::pacienteVacio(); 
 	return primero->valor; 
 }
 Cola::~Cola()

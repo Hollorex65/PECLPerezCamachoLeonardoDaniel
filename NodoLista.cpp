@@ -1,9 +1,15 @@
 #include "NodoLista.hpp"
 
-NodoLista::NodoLista(int v, NodoLista* sig)
+NodoLista::NodoLista(Paciente p, NodoLista* sig)
 {
-	valor = v; 
+	valor = p; 
 	siguiente = sig; 
+}
+NodoLista::NodoLista()
+{
+	// nodo vacio: su valor es el paciente sentinela (identificador -1)
+	valor = Paciente::pacienteVacio(); 
+	siguiente = NULL; 
 }
 NodoLista::~NodoLista()
 {

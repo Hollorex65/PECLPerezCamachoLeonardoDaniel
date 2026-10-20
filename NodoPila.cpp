@@ -1,8 +1,8 @@
 #include "NodoPila.hpp"
 
-NodoPila::NodoPila(int v, NodoPila* sig)
+NodoPila::NodoPila(Paciente p, NodoPila* sig)
 {
-	valor = v; 
+	valor = p; 
 	siguiente = sig;
 }
 

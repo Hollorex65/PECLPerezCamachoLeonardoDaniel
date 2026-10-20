@@ -1,9 +1,9 @@
 #ifndef PACIENTE_HPP
 #define PACIENTE_HPP
-#include "Persona.hpp"
 #include <cstring>
 #include <string>
 
+using namespace std; 
 class Paciente
 {
 
@@ -11,46 +11,37 @@ private:
 
 	// Atributos de la clase Paciente
 	
-	// Objeto persona
-    Persona persona;
 	int identificador;
-    bool enfermedad; //apendicitis ohernias, siendo -> [True apendicitis y False hernias]
+    bool enfermedad; //apendicitis o hernias, siendo -> [True apendicitis y False hernias]
+	string dni;
+	int habitacion; 
 	
 public:
 
 	// Setters
-
-    Paciente& SetPersona(const Persona& persona)
-    {
-        this->persona = persona;
-        return *this;
-    }
-    Paciente& SetIdentificador(int identificador)
-    {
-        this->identificador = identificador;
-        return *this;
-    }
-    Paciente& SetEnfermedad(bool enfermedad)
-    {
-        this->enfermedad = enfermedad;
-        return *this;
-    }
+	void setId(int id); 
+	void setEnfermedad(bool enfer); 
+	void setDni(string DNI); 
+	void setHabitacion(int hab); 
 	
 	// Getters
-	
-    const Persona& GetPersona() const { return persona; }
-    int GetIdentificador() const { return identificador; }
-    bool IsEnfermedad() const { return enfermedad; }
-	
+	int getId(); 
+	bool getEnfermedad(); 
+	string getDni(); 
+	int getHabitacion(); 
 	// Constructores
-	
-    Paciente();                                                       // Constructor por defecto
-    Paciente(Persona _persona, int _identificador, bool _enfermedad); // Constructor con parámetros
+    Paciente();                                                       // Constructor por defecto 
     ~Paciente();                                                      // Destructor
 
 	// Metodo para saludar siendo Paciente
-
     void saludarPaciente();
+	//generar un random dni 
+	string randomDni();
+	//generar una enfermedad aleatoria
+	bool randomEnfermedad();
+	//paciente sentinela de "no hay nada": identifica -1 (para colas/pilas/listas vacias)
+	static Paciente pacienteVacio();
+	
 };
 
 #endif // PACIENTE_HPP

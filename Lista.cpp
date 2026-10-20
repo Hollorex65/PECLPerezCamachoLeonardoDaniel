@@ -7,11 +7,11 @@ Lista::Lista()
 	longitud = 0; 
 }
 
-void Lista::insertarHead(int v)
+void Lista::insertarHead(Paciente p)
 {
-	//introduce el valor v en la cabecera de la lista.
+	//introduce el paciente p en la cabecera de la lista.
 	pnodoLista nuevo; 
-	nuevo = new NodoLista(v); 
+	nuevo = new NodoLista(p); 
 	if (head == NULL)
 		{ 
 		nuevo -> siguiente = NULL; 
@@ -23,12 +23,13 @@ void Lista::insertarHead(int v)
 		
 		}
 	head = nuevo; 
+	longitud++; 
 }
-void Lista::insertarUltimo(int v)
+void Lista::insertarUltimo(Paciente p)
 {
-	//insertamos v en el final de la lista. 
+	//insertamos p al final de la lista. 
 	pnodoLista nuevo; //iniciamos en memoria el nodo con el que vamos a trabajar
-	nuevo = new NodoLista(v); //creamos el nodo con el valor v 
+	nuevo = new NodoLista(p); //creamos el nodo con el paciente p 
 	nuevo->siguiente= NULL; //el nodo creado, el siguiente nodo al que apuntara sera null porque es el ultimo de la lista  
 	
 	if (head == NULL)
@@ -41,40 +42,56 @@ void Lista::insertarUltimo(int v)
 		ultimo-> siguiente = nuevo; //si no el siguiente del ultimo que ya estaba sera el nuevo. enlazamos los punteros 
 		}
 	ultimo = nuevo; //dejamos el ultimo de la lista como nuestro nuevo nodo 
+	longitud++; 
 }
 void Lista::eliminarHead()
 {
-	pnodoLista temporal; 
-	
-	if(head-> siguiente == NULL)
+	if (head == NULL)
 	{
-		delete head; 
+		cout << "\tlista vacia, no hay nada que eliminar\n";
+		return; // no se resta longitud porque no se ha borrado nada
 	}
-	else
+	// El nodo que sale es el head actual. Guardamos, avanzamos y borramos.
+	pnodoLista temporal = head;
+	head = head-> siguiente;
+	if (head == NULL)
 	{
-		temporal = head-> siguiente;
-		head = temporal; 
-		delete temporal; 
+		// la lista ha quedado vacia
+		ultimo = NULL;
 	}
+	else if (head-> siguiente == NULL)
+	{
+		// quedaba un solo nodo: head y ultimo apuntan al mismo
+		ultimo = head;
+	}
+	delete temporal;
+	longitud--;
 } 
-void Lista::eliminarUlitmo()//FALTA
+void Lista::eliminarUlitmo()
 {
-	pnodoLista temporal; 
-	if(head->siguiente==NULL)
+	if (head == NULL)
+	{
+		cout << "\tlista vacia, no hay nada que eliminar\n";
+		return;
+	}
+	if (head == ultimo) // solo hay un nodo: es un eliminarHead
 	{
 		eliminarHead();
+		return;
 	}
-	else
-	while(temporal->siguiente->siguiente!=NULL)
+	// Recorremos hasta quedar en el nodo ANTERIOR al ultimo
+	pnodoLista temporal = head;
+	while (temporal-> siguiente != ultimo)
 	{
-		
-	} 
-	 
-	
-	
+		temporal = temporal -> siguiente;
+	}
+	delete ultimo;
+	ultimo = temporal;
+	temporal-> siguiente = NULL;
+	longitud--;
 }
 void Lista::mostrar()
-//MOSTRAR ELEMENTOS DE LA LISTA 
+//MOSTRAR LOS PACIENTES DE LA LISTA 
 {
 	pnodoLista temporal; 
 	if(head == NULL)
@@ -86,7 +103,7 @@ void Lista::mostrar()
 		temporal = head;
 		while(temporal != NULL)
 		{
-			cout << temporal-> valor<<""; 
+			temporal->valor.saludarPaciente(); 
 			temporal = temporal -> siguiente;
 		}
 		
@@ -95,18 +112,31 @@ void Lista::mostrar()
 void Lista::borrar()
 //elimina la lista entera
 {
-	pnodoLista temporal; 
-	temporal = head; 
-	if(temporal==NULL)
+	while (head != NULL)
 	{
-		cout<<"\tla lista esta vacia		\n";
+		eliminarHead(); // por cada nodo: delete + reset de punteros + longitud--
 	}
-	else
+	longitud = 0; // por seguridad, aunque eliminarHead ya lo deja a 0
+}
+Paciente Lista::verHead()
+{
+	if (head == NULL)
 	{
-		while(temporal-> siguiente!= NULL)
-		{
-			temporal-> siguiente = temporal; 
-			delete head; 
-		}
+		cout << "\tlista vacia, no hay head\n";
+		return Paciente::pacienteVacio(); // identificador -1
 	}
+	return head-> valor;
+}
+Paciente Lista::verUltimo()
+{
+	if (ultimo == NULL)
+	{
+		cout << "\tlista vacia, no hay ultimo\n";
+		return Paciente::pacienteVacio(); // identificador -1
+	}
+	return ultimo-> valor;
+}
+Lista::~Lista()
+{
+	this->borrar(); 
 }
