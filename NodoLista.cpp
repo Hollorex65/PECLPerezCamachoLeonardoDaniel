@@ -7,5 +7,4 @@ NodoLista::NodoLista(int v, NodoLista* sig)
 }
 NodoLista::~NodoLista()
 {
-
 }
