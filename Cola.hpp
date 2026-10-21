@@ -13,6 +13,7 @@ public:
 	Paciente eliminar(); 
 	void mostrar();
 	Paciente verPrimero(); 
+	int getLongitud(); 
 	
 private: 
 	pnodoCola primero, ultimo; 

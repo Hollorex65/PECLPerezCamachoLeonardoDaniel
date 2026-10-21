@@ -103,7 +103,7 @@ void Lista::mostrar()
 		temporal = head;
 		while(temporal != NULL)
 		{
-			temporal->valor.saludarPaciente(); 
+			temporal->valor.saludarPacientePila(); 
 			temporal = temporal -> siguiente;
 		}
 		
@@ -132,9 +132,45 @@ Paciente Lista::verUltimo()
 	if (ultimo == NULL)
 	{
 		cout << "\tlista vacia, no hay ultimo\n";
-		return Paciente::pacienteVacio(); // identificador -1
+		return Paciente::pacienteVacio();	// identificador -1
 	}
-	return ultimo-> valor;
+	return ultimo-> valor; //devuelve el paciente del final de la lista
+}
+int Lista::getLongitud()
+{
+	// devuelve el numero de pacientes que hay en la lista
+	return this-> longitud; 
+}
+Paciente Lista::encontrar(bool enfermedad, bool buscarMayor)
+{
+	// si la lista esta vacia devolvemos el paciente sentinela
+	if (head == NULL)
+		return Paciente::pacienteVacio();
+	// cursor para recorrer la lista
+	pnodoLista temporal = head; 
+	// mejor paciente encontrado, empieza como sentinela
+	Paciente mejor = Paciente::pacienteVacio(); 
+	// recorremos la lista de principio a fin
+	while(temporal != NULL)
+	{
+		// solo nos interesan los pacientes con esa enfermedad
+		if(temporal->valor.getEnfermedad() == enfermedad)
+		{
+			// si todavia no hay candidato, este paciente es el primero
+			if(mejor.getId() == -1)
+				mejor = temporal-> valor;
+			// buscamos el id mas grande (enfermedad mas grave)
+			else if(buscarMayor && temporal->valor.getId() > mejor.getId())
+				mejor = temporal-> valor;
+			// o el id mas pequeno (menor prioridad)
+			else if(!buscarMayor && temporal->valor.getId() < mejor.getId())
+				mejor = temporal-> valor;
+		}
+		// avanzamos el cursor al siguiente nodo
+		temporal = temporal-> siguiente;
+	}
+	// devolvemos el mejor paciente (o sentinela si no habia ninguno)
+	return mejor; 
 }
 Lista::~Lista()
 {

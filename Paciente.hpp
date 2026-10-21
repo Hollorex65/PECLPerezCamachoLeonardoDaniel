@@ -34,7 +34,7 @@ public:
     ~Paciente();                                                      // Destructor
 
 	// Metodo para saludar siendo Paciente
-    void saludarPaciente();
+    void saludarPacientePila();
 	//generar un random dni 
 	string randomDni();
 	//generar una enfermedad aleatoria

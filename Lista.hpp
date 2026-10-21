@@ -16,6 +16,9 @@ class Lista
 		Paciente verHead();//hecho: devuelve paciente sentinela (id -1) si vacia 
 		Paciente verUltimo();//hecho: idem 
 		void borrar(); //hecho: vacia la lista entera 
+		int getLongitud(); //hecho: devuelve el numero de pacientes de la lista
+		//hecho: busca entre los pacientes de esa enfermedad el de id mas alto (buscarMayor=true) o mas bajo, sentinela si no hay
+		Paciente encontrar(bool enfermedad, bool buscarMayor);
 		
 	private: 
 		pnodoLista head, ultimo; 

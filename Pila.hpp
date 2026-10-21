@@ -13,7 +13,9 @@ public:
 	Paciente extraer(); 
 	Paciente cima(); 
 	void mostrar();
-	int getLongitud(); 
+	int getLongitud();
+	Paciente getPaciente(int id); 
+	
 	
 	
 private: 

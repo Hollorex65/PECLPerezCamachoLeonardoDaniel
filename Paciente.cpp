@@ -51,10 +51,17 @@ int Paciente::getHabitacion()
 	return this->habitacion; 
 }
 
-void Paciente::saludarPaciente()
+void Paciente::saludarPacientePila()
 {
 	//aqui comparamos con el operador terniario para no mostrar 0 y mostrar un mensaje en caso de que el identificador no se asigne (hacemos la conversion debido a que es necesaria, el operador terniario solo acepta const char*
-	cout<<"ID:	"<<(identificador == 0 ? "no hay identificador asignado" : to_string(identificador)) <<"ENFERMEDAD:	"<<enfermedad<<"DNI:	"<<dni<<"HABITACION		"<<(habitacion == 0 ? "no hay habitacion asignada" : to_string(habitacion))<<"\n"; 
+	if(enfermedad)
+	{
+		cout<<"El paciente cuyo DNI es "<<dni<<" tiene apendicitis\n";   
+	}
+	else
+	{
+		cout<<"El paciente cuyo DNI es "<<dni<<" \ttiene hernias\n";
+	}
 }
 
 string Paciente::randomDni()
