@@ -13,7 +13,7 @@ int main (int argc, char** argv)
 	while(opcion!="S")
 	{
 		
-		controlador.status(); 
+		controlador.status();  
 		cin >> opcion; 
 		controlador.elegirOpcion(opcion); 
 		 

@@ -33,8 +33,10 @@ public:
     Paciente();                                                       // Constructor por defecto 
     ~Paciente();                                                      // Destructor
 
-	// Metodo para saludar siendo Paciente
+	// Metodo para saludar siendo Paciente desde la pila 
     void saludarPacientePila();
+	//metodo para saludar desde la Cola 
+	void saludarPacienteCola(); 
 	//generar un random dni 
 	string randomDni();
 	//generar una enfermedad aleatoria

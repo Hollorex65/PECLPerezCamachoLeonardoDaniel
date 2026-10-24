@@ -53,6 +53,23 @@ Paciente Cola::eliminar()
 	longitud--; 
 	return p; 
 }
+Paciente Cola::getPaciente(int habitacion) 
+{
+	if(!primero)
+	{
+		return Paciente::pacienteVacio();
+	}
+	pnodoCola aux = ultimo; 
+	while(aux != NULL)
+	{
+		if(aux->valor.getHabitacion() == habitacion)
+		{
+			return aux -> valor; 
+		}
+		aux = aux->siguiente; 
+	}
+	return Paciente::pacienteVacio(); 
+}
 Paciente Cola::verPrimero()
 {
 	if(!primero) 
@@ -64,6 +81,7 @@ int Cola::getLongitud()
 	//devuelve el numero de pacientes que hay en la cola
 	return this-> longitud; 
 }
+
 Cola::~Cola()
 {
 	while(primero)

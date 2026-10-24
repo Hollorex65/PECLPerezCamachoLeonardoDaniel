@@ -60,7 +60,20 @@ void Paciente::saludarPacientePila()
 	}
 	else
 	{
-		cout<<"El paciente cuyo DNI es "<<dni<<" \ttiene hernias\n";
+		cout<<"El paciente cuyo DNI es "<<dni<<"     tiene hernias\n";
+	}
+}
+void Paciente::saludarPacienteCola()
+{
+	//FALTA IMPLEMENTARLO
+	//aqui comparamos con el operador terniario para no mostrar 0 y mostrar un mensaje en caso de que el identificador no se asigne (hacemos la conversion debido a que es necesaria, el operador terniario solo acepta const char*
+	if(enfermedad)
+	{
+		cout<<"El paciente cuyo DNI es "<<dni<<" tiene apendicitis\n";   
+	}
+	else
+	{
+		cout<<"El paciente cuyo DNI es "<<dni<<"     tiene hernias\n";
 	}
 }
 

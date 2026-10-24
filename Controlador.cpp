@@ -59,6 +59,7 @@ void Controlador::opcionA()
 	int pila_maximo = 48;//creamos la variable para la maxima de la Pila
 	int i; //creamos la variable para la iteracion del bucle
 	int id_comprobar; //creamos la variable para la comparacion de ids 
+	int habitacion_comprobar; //declaramos la habitacion a comprobar 
 	bool bucle = 0;//creamos la variable para el bucle while (0= False) 
 	for (i = 0; i<bucle_maximo ; i++)
 	{
@@ -72,10 +73,12 @@ void Controlador::opcionA()
 					{
 						 
 						
-						id_comprobar = rand() % 49 + 1;//creamos un numero random entre 49 y 1 
-						if (id_comprobar != pila_pacientes.getPaciente(id_comprobar).getId()) //si el id que hemos generado es diferente de -1 (caso en el que esta vacia la pila o no coincide ningun id) entonces: 
+						id_comprobar = rand() % 49 + 1;//creamos un numero random entre 49 y 1
+						habitacion_comprobar = rand() % 199 + 101;//hay que añadir una declaracion para generar la habitacion random-> apendicitis == 101, 199
+						if (id_comprobar != pila_pacientes.getPaciente(id_comprobar).getId() && habitacion_comprobar != pila_pacientes.getPaciente(habitacion_comprobar).getHabitacion()) //si el id que hemos generado es diferente de -1 (caso en el que esta vacia la pila o no coincide ningun id) entonces:
 						{
 							paciente_creacion.setId(id_comprobar);//le asignamos el id al paciente creado 
+							paciente_creacion.setHabitacion(habitacion_comprobar); //asignamos la habitacion
 							pila_pacientes.insertar(paciente_creacion); //lo insertamos
 							break; //salimos del while 
 						} 
@@ -88,9 +91,11 @@ void Controlador::opcionA()
  
 						
 						id_comprobar = rand() % 99 + 51; 
-						if (id_comprobar != pila_pacientes.getPaciente(id_comprobar).getId()) 
+						habitacion_comprobar = rand() % 299 + 201;
+						if (id_comprobar != pila_pacientes.getPaciente(id_comprobar).getId()&& habitacion_comprobar != pila_pacientes.getPaciente(habitacion_comprobar).getHabitacion()) 
 						{
 							paciente_creacion.setId(id_comprobar);
+							paciente_creacion.setHabitacion(habitacion_comprobar); 
 							pila_pacientes.insertar(paciente_creacion); //lo insertamos
 							break; 
 						} 
@@ -103,22 +108,57 @@ void Controlador::opcionA()
 	
 void Controlador:: opcionB()
 {
+	if(pila_pacientes.getUltimo()) 
+	{
+			pila_pacientes.mostrar(); 
+	}
 	
 }
  
 	
 void Controlador:: opcionC()
 {
-	
+	while(pila_pacientes.getUltimo())
+	{
+		pila_pacientes.~Pila(); 
+	}
 }
  
 void Controlador:: opcionD()
 {
+	//Simular llegada de los pacientes en las colas.\n
+	//1. primero extraemos el paciente de la pila 
+	//2. introducimos en la cola dependiendo de la enfermedad 
+	
+	while(pila_pacientes.getUltimo()) 
+	{
+		int longitud = pila_pacientes.getLongitud(); 
+		int i; 
+		Paciente paciente; 
+		for(i = 0; i<longitud; i++)
+		{
+			paciente = pila_pacientes.extraer(); 
+			
+			if(paciente.getEnfermedad() == 0)
+				if(cola_C.getLongitud() >= cola_D.getLongitud())
+					cola_C.insertar(paciente); 
+				else
+					cola_D.insertar(paciente);
+			else if(paciente.getEnfermedad() == 1)
+				if(cola_A.getLongitud() >= cola_B.getLongitud())
+					cola_A.insertar(paciente); 
+				else
+					cola_B.insertar(paciente); 
+		}
+	}
+	
 }
 
 
 void Controlador:: opcionE()
 {
+	//consultar los pacientes en la cola A y B
+	//vamos a llamar al metodo PacienteSaludarCola
 }
  
 		
@@ -159,7 +199,30 @@ void Controlador:: opcionL()
 
 void Controlador::elegirOpcion(string opcion) 
 {
-	
+	if (opcion == "A") 
+		opcionA(); 
+	else if (opcion == "B")
+		opcionB(); 
+	else if (opcion == "C")
+		opcionC();
+	else if (opcion == "D")
+		opcionD();
+	else if (opcion == "E")
+		opcionE();
+	else if (opcion == "F")
+		opcionF();
+	else if (opcion == "G")
+		opcionG();
+	else if (opcion == "H")
+		opcionH();
+	else if (opcion == "I")
+		opcionI();
+	else if (opcion == "J")
+		opcionJ();
+	else if (opcion == "K")
+		opcionK();
+	else if (opcion == "L")
+		opcionL();
 }
 
 Controlador::~Controlador()

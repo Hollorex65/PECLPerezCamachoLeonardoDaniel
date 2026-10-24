@@ -73,6 +73,10 @@ Paciente Pila::getPaciente(int id)
 	}
 	return Paciente::pacienteVacio(); 
 }
+pnodoPila Pila::getUltimo()
+{
+	return ultimo; 
+}
 Pila::~Pila()
 {
 	pnodoPila aux; 
