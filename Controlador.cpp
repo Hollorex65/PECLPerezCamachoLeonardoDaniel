@@ -75,7 +75,7 @@ void Controlador::opcionA()
 						
 						id_comprobar = rand() % 49 + 1;//creamos un numero random entre 49 y 1
 						habitacion_comprobar = rand() % 199 + 101;//hay que añadir una declaracion para generar la habitacion random-> apendicitis == 101, 199
-						if (id_comprobar != pila_pacientes.getPaciente(id_comprobar).getId() && habitacion_comprobar != pila_pacientes.getPaciente(habitacion_comprobar).getHabitacion()) //si el id que hemos generado es diferente de -1 (caso en el que esta vacia la pila o no coincide ningun id) entonces:
+						if (id_comprobar != pila_pacientes.getPacienteId(id_comprobar).getId() && habitacion_comprobar != pila_pacientes.getPacienteHabitacion(habitacion_comprobar).getHabitacion()) //si el id que hemos generado es diferente de -1 (caso en el que esta vacia la pila o no coincide ningun id) entonces:
 						{
 							paciente_creacion.setId(id_comprobar);//le asignamos el id al paciente creado 
 							paciente_creacion.setHabitacion(habitacion_comprobar); //asignamos la habitacion
@@ -92,7 +92,7 @@ void Controlador::opcionA()
 						
 						id_comprobar = rand() % 99 + 51; 
 						habitacion_comprobar = rand() % 299 + 201;
-						if (id_comprobar != pila_pacientes.getPaciente(id_comprobar).getId()&& habitacion_comprobar != pila_pacientes.getPaciente(habitacion_comprobar).getHabitacion()) 
+						if (id_comprobar != pila_pacientes.getPacienteId(id_comprobar).getId()&& habitacion_comprobar != pila_pacientes.getPacienteHabitacion(habitacion_comprobar).getHabitacion()) 
 						{
 							paciente_creacion.setId(id_comprobar);
 							paciente_creacion.setHabitacion(habitacion_comprobar); 
@@ -126,6 +126,7 @@ void Controlador:: opcionC()
  
 void Controlador:: opcionD()
 {
+	//ERROR DE LOGICA: LLENA LA PILA A O C, NO SE INTERCALAN: ARREGLAR EN EL IF 
 	//Simular llegada de los pacientes en las colas.\n
 	//1. primero extraemos el paciente de la pila 
 	//2. introducimos en la cola dependiendo de la enfermedad 
@@ -140,12 +141,12 @@ void Controlador:: opcionD()
 			paciente = pila_pacientes.extraer(); 
 			
 			if(paciente.getEnfermedad() == 0)
-				if(cola_C.getLongitud() >= cola_D.getLongitud())
+				if(cola_C.getLongitud() <= cola_D.getLongitud())
 					cola_C.insertar(paciente); 
 				else
 					cola_D.insertar(paciente);
 			else if(paciente.getEnfermedad() == 1)
-				if(cola_A.getLongitud() >= cola_B.getLongitud())
+				if(cola_A.getLongitud() <= cola_B.getLongitud())
 					cola_A.insertar(paciente); 
 				else
 					cola_B.insertar(paciente); 
@@ -159,6 +160,11 @@ void Controlador:: opcionE()
 {
 	//consultar los pacientes en la cola A y B
 	//vamos a llamar al metodo PacienteSaludarCola
+	
+	cout<<" Sala A:\n";
+	cola_A.mostrar(); 
+	cout<<" Sala B:\n";
+	cola_B.mostrar(); 
 }
  
 		

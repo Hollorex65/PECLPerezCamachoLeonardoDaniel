@@ -14,7 +14,7 @@ public:
 	void mostrar();
 	Paciente verPrimero(); 
 	int getLongitud(); 
-	Paciente getPaciente(int habitacion); 
+	Paciente getPaciente(int habitacion);
 	
 private: 
 	pnodoCola primero, ultimo; 

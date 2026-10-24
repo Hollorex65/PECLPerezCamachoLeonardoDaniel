@@ -15,7 +15,8 @@ public:
 	void mostrar();
 	int getLongitud();
 	pnodoPila getUltimo(); 
-	Paciente getPaciente(int id); 
+	Paciente getPacienteId(int id); 
+	Paciente getPacienteHabitacion(int habitacion); 
 	
 	
 	

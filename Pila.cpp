@@ -56,7 +56,7 @@ int Pila::getLongitud()
 {
 	return this-> longitud; 
 }
-Paciente Pila::getPaciente(int id)
+Paciente Pila::getPacienteId(int id)
 {
 	if(!ultimo)//comprobamos que la lista no este vacia
 	{
@@ -66,6 +66,24 @@ Paciente Pila::getPaciente(int id)
 	while(aux !=NULL)//mientras que el nodo no llegue al final
 	{
 		if(aux->valor.getId()== id)//comprobamos que el valor del nodo actual coincida con el id que pedimos
+		{
+			return aux->valor; //si coincide devolvemos el paciente con el id 
+		}
+		aux = aux->siguiente;//si no coincide avanzamos en la pila  
+	}
+	return Paciente::pacienteVacio(); 
+}
+Paciente Pila::getPacienteHabitacion(int habitacion)
+{
+	
+	if(!ultimo)//comprobamos que la lista no este vacia
+	{
+		return Paciente::pacienteVacio();//si es asi devolvemos el paciente vacio con id -1 
+	}
+	pnodoPila aux = ultimo ;//creamos nuestro nodo para recorrer la pila
+	while(aux !=NULL)//mientras que el nodo no llegue al final
+	{
+		if(aux->valor.getHabitacion()== habitacion)//comprobamos que el valor del nodo actual coincida con el id que pedimos
 		{
 			return aux->valor; //si coincide devolvemos el paciente con el id 
 		}

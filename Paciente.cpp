@@ -69,11 +69,11 @@ void Paciente::saludarPacienteCola()
 	//aqui comparamos con el operador terniario para no mostrar 0 y mostrar un mensaje en caso de que el identificador no se asigne (hacemos la conversion debido a que es necesaria, el operador terniario solo acepta const char*
 	if(enfermedad)
 	{
-		cout<<"El paciente cuyo DNI es "<<dni<<" tiene apendicitis\n";   
+		cout<<"El paciente cuyo DNI es "<<dni<<" tiene apendicitis, su ID es: "<<getId()<<" y su habitacion asignada es: "<<getHabitacion()<<"\n";   
 	}
 	else
 	{
-		cout<<"El paciente cuyo DNI es "<<dni<<"     tiene hernias\n";
+		cout<<"El paciente cuyo DNI es "<<dni<<"     tiene hernias, su ID es: "<<getId()<<" y su habitacion asignada es: "<<getHabitacion()<<"\n";
 	}
 }
 

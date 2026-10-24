@@ -29,7 +29,7 @@ void Cola::mostrar()
 	cout<<"\tEl contenido de la cola es:\n"; 
 	while(aux)
 	{
-		aux->valor.saludarPacientePila(); 
+		aux->valor.saludarPacienteCola(); 
 		aux = aux-> siguiente; 
 	}
 	cout<<endl; 
@@ -81,7 +81,6 @@ int Cola::getLongitud()
 	//devuelve el numero de pacientes que hay en la cola
 	return this-> longitud; 
 }
-
 Cola::~Cola()
 {
 	while(primero)
