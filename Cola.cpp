@@ -20,13 +20,7 @@ void Cola::insertar(Paciente p)
 }
 void Cola::mostrar()
 {
-	pnodoCola aux = primero; 
-	if(!aux)
-	{
-		cout << "\tLa cola esta vacia\n"; 
-		return; 
-	}
-	cout<<"\tEl contenido de la cola es:\n"; 
+	pnodoCola aux = primero;  
 	while(aux)
 	{
 		aux->valor.saludarPacienteCola(); 
@@ -70,6 +64,25 @@ Paciente Cola::getPaciente(int habitacion)
 	}
 	return Paciente::pacienteVacio(); 
 }
+
+Paciente Cola::getPacienteId(int id)
+{
+	if(!primero) 
+	{
+		return Paciente::pacienteVacio(); 
+	}
+	pnodoCola aux = ultimo; 
+	while(aux != NULL)
+	{
+		if(aux->valor.getId() == id)
+		{
+			return aux->valor; 
+		}
+		aux = aux->siguiente;
+	}
+	return Paciente::pacienteVacio(); 
+}
+
 Paciente Cola::verPrimero()
 {
 	if(!primero) 

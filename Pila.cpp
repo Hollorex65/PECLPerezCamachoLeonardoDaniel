@@ -39,12 +39,6 @@ Paciente Pila::cima()
 void Pila::mostrar()
 {
 	pnodoPila aux = ultimo;
-	if(!aux)
-	{
-		cout <<"\tLa pila esta vacia\n"; 
-		return; 
-	}
-	cout <<"\tEl contenido de la pila es:\n"; 
 	while(aux) 
 	{
 		aux->valor.saludarPacientePila(); 

@@ -108,6 +108,7 @@ void Controlador::opcionA()
 	
 void Controlador:: opcionB()
 {
+	//muestra los pacientes en la pila de pacientes 
 	if(pila_pacientes.getUltimo()) 
 	{
 			pila_pacientes.mostrar(); 
@@ -118,6 +119,7 @@ void Controlador:: opcionB()
 	
 void Controlador:: opcionC()
 {
+	//elimina los pacientes de la pila 
 	while(pila_pacientes.getUltimo())
 	{
 		pila_pacientes.~Pila(); 
@@ -126,7 +128,6 @@ void Controlador:: opcionC()
  
 void Controlador:: opcionD()
 {
-	//ERROR DE LOGICA: LLENA LA PILA A O C, NO SE INTERCALAN: ARREGLAR EN EL IF 
 	//Simular llegada de los pacientes en las colas.\n
 	//1. primero extraemos el paciente de la pila 
 	//2. introducimos en la cola dependiendo de la enfermedad 
@@ -170,16 +171,34 @@ void Controlador:: opcionE()
 		
 void Controlador:: opcionF()
 {
+	//muestra cola C y D
+	cout<<" Sala C:\n";
+	cola_C.mostrar(); 
+	cout<<" Sala D:\n";
+	cola_D.mostrar(); 
 }
 
 
 void Controlador:: opcionG()
 {
+	//elimina el contenido d elas colas
+	cola_A.~Cola(); 
+	cola_B.~Cola(); 
+	cola_C.~Cola(); 
+	cola_D.~Cola(); 
 }
  
 
 void Controlador:: opcionH()
 {
+	//primero recorremos la cola A y guardamos el paciente con el id mas grande comparado con el anterior que entro en la lista 
+	//mismo metodo para la B
+	//mismos metodos para la cola C, D. 
+	//metodo de lista: recibe una cola: recorre la cola hasta que encuentra el siguiente paciente con el id mas grande y lo inyecta
+	//no hace falta metodo-> recorremos la cola == buscar id
+	//recibimos el paciente a extraer: cola extraer y guardamos en un paciente auxiliar 
+	//lo introducimos en la lista 
+	
 }
 
  
