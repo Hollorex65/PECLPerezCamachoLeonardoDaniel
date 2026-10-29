@@ -39,9 +39,9 @@ void Controlador::status()
 	cout<<"E: Consultar los pacientes de las salas A y B.\n"; 
 	cout<<"F: Consultar los pacientes de las salas C y D.\n"; 
 	cout<<"G: Borrar los todos los pacientes de las salas.\n";
-	cout<<"H: Simular la entrada de los pacientes a los quirófanos (a las listas).\n";
-	cout<<"I: Mostrar los pacientes que hay en el quirófano que atiende apendicitis.\n";
-	cout<<"J: Mostrar los pacientes que hay en el quirófano que atiende hernias.\n"; 
+	cout<<"H: Simular la entrada de los pacientes a los quirofanos (a las listas).\n";
+	cout<<"I: Mostrar los pacientes que hay en el quirofano que atiende apendicitis.\n";
+	cout<<"J: Mostrar los pacientes que hay en el quirofano que atiende hernias.\n"; 
 	cout<<"K: Buscar en las listas el paciente con apendicitis de menor prioridad y el de hernia con mayor prioridad\n"; 
 	cout<<"L: Reiniciar el programa.\n";
 	cout<<"S: Salir.\n\n";
