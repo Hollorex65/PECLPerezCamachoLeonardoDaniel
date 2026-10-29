@@ -41,8 +41,8 @@ void Controlador::status()
 	cout<<"G: Borrar los todos los pacientes de las salas.\n";
 	cout<<"H: Simular la entrada de los pacientes a los quirófanos (a las listas).\n";
 	cout<<"I: Mostrar los pacientes que hay en el quirófano que atiende apendicitis.\n";
-	cout<<"J: Buscar en las listas el paciente con apendicitis de menor prioridad y el de hernia con mayor prioridad.\n"; 
-	cout<<"K: busca en las listas y muestra los 2 pacientes siguientes: el de apendicitis mas grave y el de la hernia mas grave\n"; 
+	cout<<"J: Mostrar los pacientes que hay en el quirófano que atiende hernias.\n"; 
+	cout<<"K: Buscar en las listas el paciente con apendicitis de menor prioridad y el de hernia con mayor prioridad\n"; 
 	cout<<"L: Reiniciar el programa.\n";
 	cout<<"S: Salir.\n\n";
 	cout<<"Indique la opcion deseada: "; 
@@ -74,7 +74,7 @@ void Controlador::opcionA()
 						 
 						
 						id_comprobar = rand() % 49 + 1;//creamos un numero random entre 49 y 1
-						habitacion_comprobar = rand() % 199 + 101;//hay que añadir una declaracion para generar la habitacion random-> apendicitis == 101, 199
+						habitacion_comprobar = rand() % 99 + 101;//generamos la habitacion random de apendicitis (rango 101-199 segun la practica) 
 						if (id_comprobar != pila_pacientes.getPacienteId(id_comprobar).getId() && habitacion_comprobar != pila_pacientes.getPacienteHabitacion(habitacion_comprobar).getHabitacion()) //si el id que hemos generado es diferente de -1 (caso en el que esta vacia la pila o no coincide ningun id) entonces:
 						{
 							paciente_creacion.setId(id_comprobar);//le asignamos el id al paciente creado 
@@ -90,8 +90,8 @@ void Controlador::opcionA()
 					{
  
 						
-						id_comprobar = rand() % 99 + 51; 
-						habitacion_comprobar = rand() % 299 + 201;
+						id_comprobar = rand() % 49 + 51; //creamos un numero random entre 51 y 99 para las hernias 
+						habitacion_comprobar = rand() % 99 + 201;//generamos la habitacion random de hernias (rango 201-299 segun la practica) 
 						if (id_comprobar != pila_pacientes.getPacienteId(id_comprobar).getId()&& habitacion_comprobar != pila_pacientes.getPacienteHabitacion(habitacion_comprobar).getHabitacion()) 
 						{
 							paciente_creacion.setId(id_comprobar);
@@ -119,10 +119,10 @@ void Controlador:: opcionB()
 	
 void Controlador:: opcionC()
 {
-	//elimina los pacientes de la pila 
-	while(pila_pacientes.getUltimo())
+	//elimina los pacientes de la pila (extraer libera la memoria del nodo)
+	while(pila_pacientes.getUltimo()) 
 	{
-		pila_pacientes.~Pila(); 
+		pila_pacientes.extraer(); 
 	}
 }
  
@@ -142,15 +142,19 @@ void Controlador:: opcionD()
 			paciente = pila_pacientes.extraer(); 
 			
 			if(paciente.getEnfermedad() == 0)
+			{
 				if(cola_C.getLongitud() <= cola_D.getLongitud())
 					cola_C.insertar(paciente); 
 				else
-					cola_D.insertar(paciente);
+					cola_D.insertar(paciente); 
+			}
 			else if(paciente.getEnfermedad() == 1)
+			{
 				if(cola_A.getLongitud() <= cola_B.getLongitud())
 					cola_A.insertar(paciente); 
 				else
 					cola_B.insertar(paciente); 
+			}
 		}
 	}
 	
@@ -181,45 +185,110 @@ void Controlador:: opcionF()
 
 void Controlador:: opcionG()
 {
-	//elimina el contenido d elas colas
-	cola_A.~Cola(); 
-	cola_B.~Cola(); 
-	cola_C.~Cola(); 
-	cola_D.~Cola(); 
+	//elimina el contenido d elas colas (eliminar libera la memoria del nodo)
+	while(cola_A.getPrimero())
+	{
+		cola_A.eliminar(); 
+	}
+	while(cola_B.getPrimero())
+	{
+		cola_B.eliminar(); 
+	}
+	while(cola_C.getPrimero())
+	{
+		cola_C.eliminar(); 
+	}
+	while(cola_D.getPrimero())
+	{
+		cola_D.eliminar(); 
+	}
 }
  
 
 void Controlador:: opcionH()
 {
-	//primero recorremos la cola A y guardamos el paciente con el id mas grande comparado con el anterior que entro en la lista 
-	//mismo metodo para la B
-	//mismos metodos para la cola C, D. 
-	//metodo de lista: recibe una cola: recorre la cola hasta que encuentra el siguiente paciente con el id mas grande y lo inyecta
-	//no hace falta metodo-> recorremos la cola == buscar id
-	//recibimos el paciente a extraer: cola extraer y guardamos en un paciente auxiliar 
-	//lo introducimos en la lista 
+	//H: extraemos los pacientes de las colas del preoperatorio y los ordenamos por gravedad (id) en la lista del quirofano
+	//el mas grave (id mas alto) queda AL FINAL de la lista: insertamos por head recorriendo los ids de mayor a menor
 	
+	//APENDICITIS (rango de ids 1-49): movemos la cola A y la B a la lista de apendicitis
+	int id_apendicitis = 49; //empezamos por el id mas grande posible 
+	while((cola_A.getPrimero() != NULL || cola_B.getPrimero() != NULL) && id_apendicitis >= 1) //seguimos mientras queda alguien en A o B y no nos salgamos del rango 
+	{
+		//buscamos en la cola A el paciente con el id actual 
+		Paciente paciente_a_lista = cola_A.getPacienteId(id_apendicitis); //consulta el paciente con ese id 
+		if(paciente_a_lista.getId() != -1) //si no es el sentinela, lo hemos encontrado en la A 
+		{
+			lista_apendicitis.insertarHead(paciente_a_lista); //lo metemos por delante: como bajamos ids, el mas grave acaba al final 
+			cola_A.borrarPorId(id_apendicitis); //lo extraemos de la cola para no volver a encontrarlo 
+		}
+		else
+		{
+			//si no estaba en la A, buscamos el mismo id en la cola B 
+			paciente_a_lista = cola_B.getPacienteId(id_apendicitis); 
+			if(paciente_a_lista.getId() != -1) //si lo encontramos en la B 
+			{
+				lista_apendicitis.insertarHead(paciente_a_lista); //lo metemos en la lista 
+				cola_B.borrarPorId(id_apendicitis); //y lo extraemos de la cola 
+			}
+		}
+		id_apendicitis--; //bajamos un escalon de gravedad 
+	}
+	
+	//HERNIAS (rango de ids 51-99): movemos la cola C y la D a la lista de hernias, mismo algoritmo 
+	int id_hernias = 99; //empezamos por el id mas grande posible de hernias 
+	while((cola_C.getPrimero() != NULL || cola_D.getPrimero() != NULL) && id_hernias >= 51) //seguimos mientras queda alguien en C o D y no nos salgamos del rango 
+	{
+		//buscamos en la cola C el paciente con el id actual 
+		Paciente paciente_a_lista = cola_C.getPacienteId(id_hernias); //consulta el paciente con ese id 
+		if(paciente_a_lista.getId() != -1) //si no es el sentinela, lo hemos encontrado en la C 
+		{
+			lista_hernias.insertarHead(paciente_a_lista); //lo metemos por delante en la lista de hernias 
+			cola_C.borrarPorId(id_hernias); //lo extraemos de la cola 
+		}
+		else
+		{
+			//si no estaba en la C, buscamos el mismo id en la cola D 
+			paciente_a_lista = cola_D.getPacienteId(id_hernias); 
+			if(paciente_a_lista.getId() != -1) //si lo encontramos en la D 
+			{
+				lista_hernias.insertarHead(paciente_a_lista); //lo metemos en la lista 
+				cola_D.borrarPorId(id_hernias); //y lo extraemos de la cola 
+			}
+		}
+		id_hernias--; //bajamos un escalon de gravedad 
+	}
 }
 
  
 void Controlador:: opcionI()
 {
+	lista_apendicitis.mostrar(); 
 }
  
 
 void Controlador:: opcionJ()
 {
+	lista_hernias.mostrar(); 
 }
  
 
 
 void Controlador:: opcionK()
 {
+	// Buscar en las listas el paciente con apendicitis de menor prioridad y el de hernia con mayor prioridad
+	Paciente paciente_apendicitis = lista_apendicitis.encontrar(1,0);
+	Paciente  paciente_hernias = lista_hernias.encontrar(0,1);
+
+	paciente_apendicitis.saludarPacienteCola(); 
+	paciente_hernias.saludarPacienteCola(); 
 }
  
 
 void Controlador:: opcionL()
 {
+	//reiniciamos: vaciamos las dos listas del quirofano (borrar libera todos los nodos)
+	lista_apendicitis.borrar(); 
+	lista_hernias.borrar(); 
 }
 
 void Controlador::elegirOpcion(string opcion) 

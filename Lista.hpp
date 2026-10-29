@@ -19,6 +19,8 @@ class Lista
 		int getLongitud(); //hecho: devuelve el numero de pacientes de la lista
 		//hecho: busca entre los pacientes de esa enfermedad el de id mas alto (buscarMayor=true) o mas bajo, sentinela si no hay
 		Paciente encontrar(bool enfermedad, bool buscarMayor);
+		//hecho: devuelve el paciente con esa habitacion o el sentinela (habitacion 0) si no esta en la lista
+		Paciente getPacienteHabitacion(int habitacion);
 		
 	private: 
 		pnodoLista head, ultimo; 

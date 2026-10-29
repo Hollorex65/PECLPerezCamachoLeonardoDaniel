@@ -92,7 +92,7 @@ string Paciente::randomDni()
 
 bool Paciente::randomEnfermedad()
 {
-	// rand() % 2 devuelve 0 o 1: 0 -> true (apendicitis), 1 -> false (hernias)
+	// rand() % 2 devuelve 0 o 1: 0 -> false (apendicitis), 1 -> true (hernias)
 	return rand() % 2 == 0;
 }
 

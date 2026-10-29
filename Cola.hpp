@@ -14,8 +14,11 @@ public:
 	void mostrar();
 	Paciente verPrimero(); 
 	int getLongitud(); 
+	pnodoCola getPrimero(); 
 	Paciente getPaciente(int habitacion); 
 	Paciente getPacienteId(int id); 
+	//borra y libera el nodo cuyo paciente tenga ese id 
+	void borrarPorId(int id); 
 	
 	
 private: 

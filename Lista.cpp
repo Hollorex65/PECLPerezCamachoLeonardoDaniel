@@ -94,20 +94,14 @@ void Lista::mostrar()
 //MOSTRAR LOS PACIENTES DE LA LISTA 
 {
 	pnodoLista temporal; 
-	if(head == NULL)
+	temporal = head;
+	while(temporal != NULL)
 	{
-		cout<< "\tlista vacia		\n"; 
+		temporal->valor.saludarPacienteCola(); 
+		temporal = temporal -> siguiente;
 	}
-	else
-	{
-		temporal = head;
-		while(temporal != NULL)
-		{
-			temporal->valor.saludarPacientePila(); 
-			temporal = temporal -> siguiente;
-		}
-		
-	}
+	
+
 }
 void Lista::borrar()
 //elimina la lista entera
@@ -171,6 +165,25 @@ Paciente Lista::encontrar(bool enfermedad, bool buscarMayor)
 	}
 	// devolvemos el mejor paciente (o sentinela si no habia ninguno)
 	return mejor; 
+}
+Paciente Lista::getPacienteHabitacion(int habitacion)
+{
+	// si la lista esta vacia devolvemos el sentinela (habitacion 0)
+	if(head == NULL)
+		return Paciente::pacienteVacio(); 
+	// cursor para recorrer la lista desde el head 
+	pnodoLista temporal = head; 
+	// recorremos la lista de principio a fin 
+	while(temporal != NULL) 
+	{ 
+		// si el paciente del nodo actual tiene esa habitacion lo devolvemos 
+		if(temporal->valor.getHabitacion() == habitacion) 
+			return temporal->valor; 
+		// avanzamos el cursor al siguiente nodo 
+		temporal = temporal-> siguiente; 
+	} 
+	// no hay nadie con esa habitacion: devolvemos el sentinela 
+	return Paciente::pacienteVacio(); 
 }
 Lista::~Lista()
 {
